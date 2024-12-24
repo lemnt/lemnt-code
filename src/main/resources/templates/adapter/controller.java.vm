@@ -1,0 +1,111 @@
+package ${package.Controller};
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.security.access.prepost.PreAuthorize;
+#if(${restControllerStyle})
+import org.springframework.web.bind.annotation.RestController;
+#else
+import org.springframework.stereotype.Controller;
+#end
+import io.swagger.v3.oas.annotations.Operation;
+import com.layban.common.core.model.dto.PageDTO;
+import com.layban.common.core.model.vo.R;
+import ${package.Controller}.vo.${entity}VO;
+import ${package.Controller}.vo.add.${entity}AddVO;
+import ${package.Controller}.vo.update.${entity}UpdateVO;
+import ${package.Controller}.vo.qry.${entity}PageVO;
+#if(${superControllerClassPackage})
+import ${superControllerClassPackage};
+#end
+
+/**
+ * $!{table.comment} 前端控制器
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${restControllerStyle})
+@RestController
+#else
+@Controller
+#end
+@RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
+#if(${kotlin})
+class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end
+
+#else
+#if(${superControllerClass})
+public class ${table.controllerName} extends ${superControllerClass} {
+#else
+public class ${table.controllerName} {
+#end
+#end
+#set($permissionPrefix = $table.name.replace("_", ":"))
+    /**
+     * 分页查询${table.comment}
+     *
+     * @param qry
+     * @return
+     */
+    @GetMapping("/page")
+    @PreAuthorize("@pms.hasPermission('${permissionPrefix}:page')")
+    @Operation(summary = "分页查询${table.comment}", description = "权限标识:${permissionPrefix}:page")
+    public R<PageDTO<${entity}VO>> page(${entity}PageVO qry) {
+        return R.ok(baseService.page(qry));
+    }
+
+    /**
+     * 获取${table.comment}详情
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    @PreAuthorize("@pms.hasPermission('${permissionPrefix}:info')")
+    @Operation(summary = "获取${table.comment}详情", description = "权限标识:${permissionPrefix}:info")
+    public R<${entity}VO> detail(@PathVariable Long id) {
+        return R.ok(baseService.getById(id));
+    }
+
+    /**
+     * 新增${table.comment}
+     *
+     * @param vo
+     * @return
+     */
+    @PostMapping
+    @PreAuthorize("@pms.hasPermission('${permissionPrefix}:add')")
+    @Operation(summary = "新增${table.comment}", description = "权限标识:${permissionPrefix}:add")
+    public R<Boolean> add(@Validated @RequestBody ${entity}AddVO vo) {
+        return R.ok(baseService.add(vo));
+    }
+
+    /**
+     * 修改${table.comment}
+     *
+     * @param vo
+     * @return
+     */
+    @PutMapping
+    @PreAuthorize("@pms.hasPermission('${permissionPrefix}:edit')")
+    @Operation(summary = "修改${table.comment}", description = "权限标识:${permissionPrefix}:edit")
+    public R<Boolean> update(@Validated @RequestBody ${entity}UpdateVO vo) {
+        return R.ok(baseService.updateById(vo));
+    }
+
+    /**
+     * 批量删除${table.comment}
+     *
+     * @param ids
+     * @return
+     */
+    @DeleteMapping("/batch")
+    @PreAuthorize("@pms.hasPermission('${permissionPrefix}:remove')")
+    @Operation(summary = "批量删除改${table.comment}", description = "权限标识:${permissionPrefix}:remove")
+    public R<Boolean> removeBatch(@RequestBody List<Long> ids) {
+        return R.ok(baseService.removeBatch(ids));
+    }
+
+#if(!${kotlin})
+}
+#end

@@ -1,0 +1,36 @@
+package ${package.Parent}.${convert};
+
+import ${package.Entity}.${entity};
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.layban.common.core.model.dto.PageDTO;
+import ${package.Controller}.vo.${entity}VO;
+import ${package.Controller}.vo.add.${entity}AddVO;
+import ${package.Controller}.vo.update.${entity}UpdateVO;
+import ${package.Controller}.vo.qry.${entity}PageVO;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
+
+/**
+ * $!{table.comment}
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Mapper
+public interface ${entity}Convert {
+
+    ${entity}Convert INSTANCE = Mappers.getMapper(${entity}Convert.class);
+
+    PageDTO<${entity}VO> convert(IPage<${entity}DO> page);
+
+    List<${entity}VO> convert(List<${entity}DO> list);
+
+    ${entity} convert(${entity}AddVO createVO);
+
+    ${entity} convert(${entity}UpdateVO updateVO);
+
+    ${entity}VO convert(${entity}DO po);
+
+
+
+}

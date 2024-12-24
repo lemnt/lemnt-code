@@ -1,0 +1,65 @@
+package ${package.Service};
+
+import ${package.Entity}.${entity}DO;
+import com.layban.common.core.model.dto.PageDTO;
+import ${package.Controller}.vo.${entity}VO;
+import ${package.Controller}.vo.add.${entity}AddVO;
+import ${package.Controller}.vo.update.${entity}UpdateVO;
+import ${package.Controller}.vo.qry.${entity}PageVO;
+import ${superServiceClassPackage};
+
+/**
+ * $!{table.comment} 服务类
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${kotlin})
+interface ${table.serviceName} : ${superServiceClass}<${entity}DO>
+#else
+public interface ${table.serviceName} extends ${superServiceClass} {
+#end
+
+    /**
+     * 分页查询${table.comment}
+     *
+     * @param query
+     * @return
+     */
+    PageDTO<${entity}VO> page(${entity}PageVO query);
+
+    /**
+     * 获取${table.comment}详情
+     *
+     * @param id
+     * @return
+     */
+    ${entity}VO getById(Long id);
+
+    /**
+     * 新增${table.comment}
+     *
+     * @param entity
+     * @return
+     */
+    Boolean add(${entity}AddVO entity);
+
+    /**
+     * 修改${table.comment}
+     *
+     * @param entity
+     * @return
+     */
+    Boolean updateById(${entity}UpdateVO entity);
+
+    /**
+     * 批量删除${table.comment}
+     *
+     * @param ids
+     * @return
+     */
+    Boolean removeBatch(List<Long> ids);
+
+#if(!${kotlin})
+}
+#end

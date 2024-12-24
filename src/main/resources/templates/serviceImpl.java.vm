@@ -1,0 +1,59 @@
+package ${package.ServiceImpl};
+
+import ${package.Entity}.${entity}DO;
+import com.layban.common.core.model.dto.PageDTO;
+import ${package.Controller}.vo.${entity}VO;
+import ${package.Controller}.vo.add.${entity}AddVO;
+import ${package.Controller}.vo.update.${entity}UpdateVO;
+import ${package.Controller}.vo.qry.${entity}PageVO;
+import ${package.Mapper}.${table.mapperName};
+#if(${generateService})
+import ${package.Service}.${table.serviceName};
+#end
+import ${superServiceImplClassPackage};
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+/**
+ * $!{table.comment} 服务实现类
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+#if(${kotlin})
+open class ${table.serviceImplName} : ${superServiceImplClass}()#if(${generateService}), ${table.serviceName}#end {
+#else
+public class ${table.serviceImplName} extends ${superServiceImplClass}#if(${generateService}) implements ${table.serviceName}#end {
+#end
+
+    @Autowired
+    protected ${table.mapperName} baseMapper;
+
+    @Override
+    public PageDTO<${entity}VO> page(${entity}PageVO vo) {
+        PageDTO<${entity}DO> page = baseMapper.page(vo);
+        return ${entity}Convertor.INSTANCE.convert(page);
+    }
+
+    @Override
+    public ${entity}VO getById(Long id) {
+        return ${entity}Convertor.INSTANCE.convert(baseMapper.getById(id));
+    }
+
+    @Override
+    public Boolean add(${entity}AddVO vo) {
+        return baseMapper.add(${entity}Convertor.INSTANCE.convert(vo));
+    }
+
+    @Override
+    public Boolean updateById(${entity}UpdateVO vo) {
+        return baseMapper.updateById(${entity}Convertor.INSTANCE.convert(vo));
+    }
+
+    @Override
+    public Boolean removeBatch(List<Long> ids) {
+        return baseMapper.removeBatch(ids);
+    }
+
+}

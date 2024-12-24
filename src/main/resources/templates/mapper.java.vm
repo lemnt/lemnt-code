@@ -1,0 +1,38 @@
+package ${package.Mapper};
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import ${package.Controller}.vo.qry.${entity}PageVO;
+import org.apache.ibatis.annotations.Param;
+import ${package.Entity}.${entity}DO;
+import ${superMapperClassPackage};
+#if(${mapperAnnotationClass})
+import ${mapperAnnotationClass.name};
+#end
+
+/**
+ * $!{table.comment} Mapper 接口
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${mapperAnnotationClass})
+@${mapperAnnotationClass.simpleName}
+#end
+#if(${kotlin})
+interface ${table.mapperName} : ${superMapperClass}<${entity}DO>
+#else
+public interface ${table.mapperName} extends ${superMapperClass}<${entity}DO> {
+#end
+    /**
+     * 分页查询
+     *
+     * @param page
+     * @param qry
+     * @return
+     */
+    IPage<${className}DO> page(Page<${entity}PageVO> page, @Param("qry") ${entity}PageVO qry);
+#if(${kotlin})
+}
+#end
