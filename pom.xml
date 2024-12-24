@@ -3,12 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.layban</groupId>
-    <artifactId>layban-code</artifactId>
+    <groupId>cn.lemnt</groupId>
+    <artifactId>lemnt-code</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
-    <name>layban-code</name>
-    <description>layban-code</description>
+    <name>lemnt-code</name>
+    <description>lemnt-code</description>
 
     <properties>
         <java.version>17</java.version>
@@ -49,8 +49,5 @@
             <version>2.4.1</version>
         </dependency>
     </dependencies>
-
-    <build>
-    </build>
 
 </project>

@@ -1,4 +1,4 @@
-package com.layban.code;
+package cn.lemnt.code;
 
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
